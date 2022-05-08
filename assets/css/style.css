@@ -10,6 +10,7 @@ body {
 
 .alignright {
     float: right;
+    margin: 10px;
 }
 
 button {
@@ -17,9 +18,22 @@ button {
     color: white;
     font-size: 40px;
     border-radius: 5px;
+    margin: 10px;
 }
 
 .alignright {
     font-size: 40px;
     color: white;
+}
+
+.question-box {
+    height: 400px;
+    width: 50%;
+    background-color: rgb(171, 171, 171);
+    border: 10px white solid;
+    border-radius: 5px;
+    opacity: .6;
+    padding: 20px;
+    margin: auto;
+    margin-top: 100px;
 }
