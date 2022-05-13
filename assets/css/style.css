@@ -38,7 +38,7 @@ button:hover {
     color: white;
 }
 
-.question-box {
+.container {
     height: 400px;
     width: 50%;
     background-color: rgb(171, 171, 171);
@@ -52,7 +52,20 @@ button:hover {
 }
 
 .welcome-text {
-    font-size: 30px;
+    font-size: 40px;
     color: black;
     padding: 5px;
+}
+
+.btn {
+    background-color: rgba(137, 43, 226, 0.351);
+}
+
+h2 {
+    font-size: 40px;
+    color: black;
+}
+
+p {
+    font-size: 30px;
 }

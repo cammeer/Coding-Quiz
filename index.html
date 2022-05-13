@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
     <!-- header -->
     <div id="textbox">
         <a href="highscores.html" target="_blank"><button class="alignleft" class="high-scores-btn">High Scores</button></a>
@@ -19,12 +18,29 @@
     <div style="clear: both;"></div>
 
     <!-- code quiz box -->
-    <div class="question-box">
-        <p class="welcome-text"> Try to answer the following code-related questions within the time limit. Incorrect answers will penalize your score/time by ten seconds!</p>
-        <button id="start-quiz" class="alignleft">Start Quiz</button>
-    </div>
+    <div class="container">
+        <div id="question-container">
+            <main class="main" id="main">
 
-    <script src="./assets/js/script.js"></script>
+                <div id="welcome">
+                    <h2></h2>
+                    <p></p>
+                </div>
+
+                <div id="question">
+                    <p id="question-text"></p>
+                </div>
+
+                <div id="feedback">
+                    <p id="correct" class="correct-style"></p>
+                    <p id="wrong" class="wrong-style"></p>
+                </div>
+
+            </main>
+            <section id="section"></section>
+
+
+            <script src="./assets/js/script.js"></script>
 </body>
 
 </html>
