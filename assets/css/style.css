@@ -11,6 +11,8 @@ body {
 .alignright {
     float: right;
     margin: 10px;
+    font-size: 40px;
+    color: white;
 }
 
 button {
@@ -31,11 +33,6 @@ button {
 button:hover {
     color: white;
     background-color: rgba(0, 255, 255, 0.396);
-}
-
-.alignright {
-    font-size: 40px;
-    color: white;
 }
 
 .container {

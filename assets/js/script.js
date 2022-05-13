@@ -1,89 +1,129 @@
-var mainEl = document.querySelector("#main");
-var countdownEl = document.querySelector("#start-btn");
-var timerEl = document.getElementById('countdown');
-var welcomeEl = document.querySelector("#welcome");
+var questions = [{
+        title: "What is 2 + 2?",
+        choices: ["3", "5", "4", "22"],
+        answer: "4"
+    },
+    {
+        title: "Where am I?",
+        choices: ["Earth", "home", "idk", "All of the above"],
+        answer: "All of the above"
+    },
+]
+
+//variables for  functions.. scores and timers..
+var score = 0;
+var currentQuestion = -1;
+var timeLeft = 0;
+var timer;
+
+//starts the countdown timer once user clicks the 'start' button
+function start() {
+
+    timeLeft = 75;
+    document.getElementById("timeLeft").innerHTML = timeLeft;
 
 
-var mainHeader = document.createElement("h2");
-mainHeader.textContent = "Coding Quiz Challenge";
-mainEl.appendChild(mainHeader);
-
-var mainText = document.createElement("p");
-mainText.textContent =
-    "Answer the following code-related questions within the time limit. Incorrect answers will penalize your score/time by ten seconds! So harsh!";
-mainEl.appendChild(mainText);
-
-var startBtn = document.createElement("button");
-startBtn.textContent = "Start Quiz";
-startBtn.className = "start-btn";
-mainEl.appendChild(startBtn);
-
-
-//when the start button is clicked, 
-//hide the content in the welcome div
-//display question1 text
-//diplay 4 buttons underneath (1 right answer button and 3 wrong answer buttons)
-
-//add event listener for q1 (does this go inside/outside??)
-//if correct do X
-//else, do y
-//if right answer is chosen
-//optional: display "correct" underneath question
-//else
-//10 seconds are subtracted from timer
-//optional:display "wrong" underneath question
-
-//then move on to next question
-//display question2 text
-//diplay 4 buttons underneath (1 right answer button and 3 wrong answer buttons)
-
-//if right answer is chosen
-//display "correct" underneath question
-//else
-//10 seconds are subtracted from timer
-//display "wrong" underneath question
-
-//after loop through all questions
-//timer value is stored as high score
-//display ending "all done" text, score, enter initals form field, and submit button
-
-//submit
-
-//go back button goes to quiz welcome and restarts timer
-//clear high scores button
-
-
-function countdown() {
-    var timeLeft = 100;
-
-    var timeInterval = setInterval(function() {
-
-        if (timeLeft > 1) {
-            timerEl.textContent = timeLeft + ' seconds remaining';
-            timeLeft--;
-        } else if (timeLeft === 1) {
-            timerEl.textContent = timeLeft + ' second remaining';
-            timeLeft--;
-        } else {
-            timerEl.textContent = '';
-            clearInterval(timeInterval);
+    timer = setInterval(function() {
+        timeLeft--;
+        document.getElementById("timeLeft").innerHTML = timeLeft;
+        //proceed to end the game function when timer is below 0 at any time
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            endGame();
         }
     }, 1000);
+
+    next();
+};
+
+
+//stop the timer to end the game
+function endGame() {
+    clearInterval(timer);
+
+
+    var quizContent = `
+        <h2>Game over!</h2>
+        <h3>You got a ` + score + ` /100!</h3>
+        <h3>That means you got ` + score / 20 + ` questions correct!</h3>
+        <input type="text" id="name" placeholder="First name">
+        <button onclick="setScore()">Set score!</button>`;
+
+    document.getElementById("quizBody").innerHTML = quizContent;
 }
 
-//timer starts with click on Start Quiz button
-startBtn.addEventListener("click", countdown);
+//store the scores on local storage
+function setScore() {
+    localStorage.setItem("highscore", score);
+    localStorage.setItem("highscoreName", document.getElementById('name').value);
+    getScore();
+}
 
+function getScore() {
+    var quizContent = `
+<h2>` + localStorage.getItem("highscoreName") + `'s highscore is:</h2>
+<h1>` + localStorage.getItem("highscore") + `</h1><br>
 
-// var questionArray = [{
-//     question1: 'What is 2 + 2',
-//     answers: [
-//         { text: '4', correct: true } { text: '5', correct: false } { text: '6', correct: false },
-//         { text: '22', correct: false },
-//     ]
-//     question2: 'What is 3 + 3',
-//     answers: [
-//         { text: '6', correct: true } { text: '5', correct: false } { text: '7', correct: false },
-//         { text: '33', correct: false },
-//     ]
-// }]
+<button onclick="clearScore()">Clear score!</button><button onclick="resetGame()">Play Again!</button>
+
+`;
+
+    document.getElementById("quizBody").innerHTML = quizContent;
+}
+
+//clears score name and value in local storage if the user selects 'clear score'
+function clearScore() {
+    localStorage.setItem("highscore", "");
+    localStorage.setItem("highscoreName", "");
+
+    resetGame();
+}
+
+//reset the game
+function resetGame() {
+    clearInterval(timer);
+    score = 0;
+    currentQuestion = -1;
+    timeLeft = 0;
+    timer = null;
+
+    document.getElementById("timeLeft").innerHTML = timeLeft;
+
+    var quizContent =
+        `<h1>JavaScript Quiz!</h1>
+        <h3>Click to play!</h3>
+        <button onclick="start()">Start!</button>`;
+
+    document.getElementById("quizBody").innerHTML = quizContent;
+}
+
+//deduct 10 seconds from timer if incorrect
+function incorrect() {
+    timeLeft -= 10;
+    next();
+}
+
+//loops through  questions
+function next() {
+    currentQuestion++;
+
+    if (currentQuestion > questions.length - 1) {
+        endGame();
+        return;
+    }
+
+    var quizContent = "<h2>" + questions[currentQuestion].title + "</h2>"
+
+    for (var buttonLoop = 0; buttonLoop < questions[currentQuestion].choices.length; buttonLoop++) {
+        var buttonCode = "<button onclick=\"[ANS]\">[CHOICE]</button>";
+        buttonCode = buttonCode.replace("[CHOICE]", questions[currentQuestion].choices[buttonLoop]);
+        if (questions[currentQuestion].choices[buttonLoop] == questions[currentQuestion].answer) {
+            buttonCode = buttonCode.replace("[ANS]", "correct()");
+        } else {
+            buttonCode = buttonCode.replace("[ANS]", "incorrect()");
+        }
+        quizContent += buttonCode
+    }
+
+    document.getElementById("quizBody").innerHTML = quizContent;
+}
