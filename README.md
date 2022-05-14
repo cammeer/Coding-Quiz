@@ -1,4 +1,4 @@
-# JavaScript Coding-Quiz
+# JavaScript Coding Quiz
 
 ## General info
 
@@ -10,7 +10,7 @@ A timed quiz covering JavaScript fundamentals.
 Project is created with:
 * HTML
 * CSS
-*JavaScript
+* JavaScript
     
 ## Launch
 To launch this site, [click here](https://cammeer.github.io/Coding-Quiz/)
