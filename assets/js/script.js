@@ -1,12 +1,17 @@
 var questions = [{
-        title: "What is 2 + 2?",
-        choices: ["3", "5", "4", "22"],
-        answer: "4"
+        title: "Commonly used data types do not include",
+        choices: ["strings", "booleans", "pumpkins", "numbers"],
+        answer: "pumpkins"
     },
     {
-        title: "Where am I?",
-        choices: ["Earth", "home", "idk", "All of the above"],
-        answer: "All of the above"
+        title: "The condition within an if/else statement is enclosed within___?",
+        choices: ["a bone cage", "parentheses", "a magic cube", "the witch's hut"],
+        answer: "parentheses"
+    },
+    {
+        title: "Arrays in Javascript can be used to store___",
+        choices: ["numbers and strings", "many different data types", "potions", "booleans"],
+        answer: "many different data types"
     },
 ]
 
@@ -19,7 +24,7 @@ var timer;
 //starts the countdown timer once user clicks the 'start' button
 function start() {
 
-    timeLeft = 75;
+    timeLeft = 60;
     document.getElementById("timeLeft").innerHTML = timeLeft;
 
 
@@ -43,11 +48,10 @@ function endGame() {
 
 
     var quizContent = `
-        <h2>Game over!</h2>
-        <h3>You got a ` + score + ` /100!</h3>
-        <h3>That means you got ` + score / 20 + ` questions correct!</h3>
+        <h2>You survived the very spooky javascript game.</h2>
+        <h3>You got ` + score / 1 + ` questions correct!</h3>
         <input type="text" id="name" placeholder="First name">
-        <button onclick="setScore()">Set score!</button>`;
+        <button onclick="setScore()">Store high score</button>`;
 
     document.getElementById("quizBody").innerHTML = quizContent;
 }
@@ -90,8 +94,8 @@ function resetGame() {
     document.getElementById("timeLeft").innerHTML = timeLeft;
 
     var quizContent =
-        `<h1>JavaScript Quiz!</h1>
-        <h3>Click to play!</h3>
+        `<h1>Spooky Coding Quiz Challenge</h1>
+        <h3>Answer the following spooky code-related questions within the time limit. Incorrect answers penalize your score/time by 10 seconds. Harsh! :|</h3>
         <button onclick="start()">Start!</button>`;
 
     document.getElementById("quizBody").innerHTML = quizContent;
@@ -103,7 +107,12 @@ function incorrect() {
     next();
 }
 
-//loops through  questions
+function correct() {
+    next();
+    score++
+}
+
+//loops through questions DEFINE CORRECT IN THIS FUNCTION!!
 function next() {
     currentQuestion++;
 

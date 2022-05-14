@@ -58,9 +58,20 @@ button:hover {
     background-color: rgba(137, 43, 226, 0.351);
 }
 
+h1 {
+    font-size: 40px;
+    text-align: center;
+    color: black;
+}
+
 h2 {
     font-size: 40px;
     color: black;
+}
+
+h3 {
+    font-size: 35px;
+    color: rgb(86, 41, 86);
 }
 
 p {
